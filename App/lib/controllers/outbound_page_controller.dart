@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:futsa/models/outbound_page_model.dart';
 import "package:get/get.dart";
-
 import '../views/pages/location_page.dart';
 
 class OutboundController extends GetxController {
@@ -28,7 +27,7 @@ class OutboundController extends GetxController {
 
    nextPage(){
      if(isFinalPage){
-        Get.to(const LocationPage());
+        Get.to(LocationPage());
      }
      else{
        controller.nextPage(duration: 300.milliseconds, curve: Curves.easeInOut);

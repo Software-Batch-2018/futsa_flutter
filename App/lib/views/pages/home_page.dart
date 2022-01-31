@@ -1,22 +1,25 @@
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:futsa/controllers/outbound_page_controller.dart';
 import 'package:futsa/views/pages/location_page.dart';
 import 'package:futsa/views/widgets/outbound_page.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'Auth/signin.dart';
+import "../widgets/global_styles.dart";
 
 class Homepage extends StatelessWidget {
   final _outboundPageController = OutboundController();
+  GlobalStyles _globalStyles = GlobalStyles();
+
+  void nextPage () {
+      Get.toNamed('/location');
+    }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
+      appBar: _globalStyles.appBar("FUTSA"),
       body: SafeArea(
         child: Stack(children: [
           PageView.builder(
@@ -67,61 +70,10 @@ class Homepage extends StatelessWidget {
             bottom: 35,
             left: 50,
             right: 50,
-            child: _getStartedButton(),
-            // CircleAvatar(
-            //   child: IconButton(
-            //     icon: !_outboundPageController.isFinalPage
-            //         ? const Icon(
-            //             Icons.arrow_forward,
-            //             color: Colors.white,
-            //           )
-            //         : const Icon(
-            //             Icons.login,
-            //             color: Colors.white,
-            //           ),
-            //     onPressed: _outboundPageController.nextPage,
-            //   ),
-            // ),
+            child: _globalStyles.getStartedButton("Get Started" , nextPage),
           ),
         ]),
       ),
     );
   }
-}
-
-
-
-AppBar _appBar(){
-  return AppBar(
-    backgroundColor: Colors.white,
-    title: const Center(
-      child: Text("FUTSA" ,style: TextStyle(
-        color: Colors.black,
-      ),),
-    ),
-    elevation: 0,
-  );
-}
-
-
-
-GestureDetector _getStartedButton(){
-  return GestureDetector(
-    onTap: (){
-      Get.toNamed('/location');
-    },
-    child: Container(
-      width: 200,
-     height: 40,
-     alignment: Alignment.center,
-      child: const Text("Get Started" ,style: TextStyle(
-        color: Colors.teal,
-        fontWeight: FontWeight.bold,
-      ),),
-      decoration:  BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Colors.teal)
-      ),
-    ),
-  );
 }
