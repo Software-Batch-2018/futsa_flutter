@@ -1,26 +1,39 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../widgets/global_styles.dart';
+import "package:get/get.dart";
 
 class LocationPage extends StatelessWidget {
-  const LocationPage({Key? key}) : super(key: key);
+  LocationPage({Key? key}) : super(key: key);
+  final GlobalStyles _globalStyles = GlobalStyles();
+
+  void nextPage() {
+    Get.toNamed('/main');
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: _appBar(),
+        appBar: _globalStyles.appBar('FUTSA'),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.add_location , color: Colors.teal,),
-                  Text('Location Setup', style: _headerTextStyle()),
+                  const Icon(
+                    Icons.add_location,
+                    color: Colors.teal,
+                  ),
+                  Text('Location Setup',
+                      style: _globalStyles.headerTextStyle()),
                 ],
               ),
               Container(
@@ -46,58 +59,23 @@ class LocationPage extends StatelessWidget {
                   ],
                 ),
               ),
-            const SizedBox(height: 50,),
-            Image.asset("assets/images/location.png" , fit: BoxFit.contain,), const SizedBox(height: 50,),
-            Container(
-              child: _getStartedButton(),
-            )
+              const SizedBox(
+                height: 50,
+              ),
+              Image.asset(
+                "assets/images/location.png",
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Container(
+                child: _globalStyles.getStartedButton('Next' , nextPage),
+              )
             ],
           ),
         ),
       ),
     );
   }
-}
-
-AppBar _appBar() {
-  return AppBar(
-    backgroundColor: Colors.white,
-    elevation: 0,
-    centerTitle: true,
-    title: const Text(
-      "FUTSA",
-      style: TextStyle(
-        color: Colors.black,
-      ),
-    ),
-  );
-}
-
-TextStyle _headerTextStyle() {
-  return GoogleFonts.openSans(
-    textStyle: const TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    ),
-  );
-}
-
-GestureDetector _getStartedButton(){
-  return GestureDetector(
-    onTap: (){
-    },
-    child: Container(
-      width: 200,
-      height: 40,
-      alignment: Alignment.center,
-      child: const Text("Next" ,style: TextStyle(
-        color: Colors.teal,
-        fontWeight: FontWeight.bold,
-      ),),
-      decoration:  BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: Colors.teal)
-      ),
-    ),
-  );
 }

@@ -1,12 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import "./global_styles.dart";
 
 class OutboundPage extends StatelessWidget {
-
   String imageAsset;
   String title;
   String description;
+
+  final GlobalStyles _globalStyles = GlobalStyles();
 
   OutboundPage(
       {Key? key,
@@ -25,14 +26,16 @@ class OutboundPage extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: _headerTextStyle(),
+              style: _globalStyles.headerTextStyle(),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 description,
-                style: _subHeaderTextStyle(),
+                style: _globalStyles.subHeaderTextStyle(),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -45,25 +48,11 @@ class OutboundPage extends StatelessWidget {
                 )),
           ],
         ),
-SizedBox(height: 70,)
+        SizedBox(
+          height: 70,
+        )
       ],
     );
   }
 }
 
-TextStyle _headerTextStyle() {
-  return GoogleFonts.openSans(
-    textStyle: const TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    ),
-  );
-}
-
-TextStyle _subHeaderTextStyle() {
-  return GoogleFonts.openSans(
-    textStyle: const TextStyle(
-        fontSize: 12, fontWeight: FontWeight.normal, color: Colors.grey,
-    ),
-  );
-}
