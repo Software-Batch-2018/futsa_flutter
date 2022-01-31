@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage> {
             type: BottomNavigationBarType.fixed,
             items: const [
               BottomNavigationBarItem(
-                  title: Text('Home'), icon: Icon(Icons.home)),
+                  title: Text('Explore'), icon: Icon(Icons.explore)),
               BottomNavigationBarItem(
                 title: Text('Music'),
                 icon: Icon(Icons.music_note),
@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
                 ],
               );
             },
-            itemCount: 4,
+            itemCount: _mainPageController.navItems.length,
             onPageChanged: _mainPageController.currentIndex,
             controller: _mainPageController.controller,
           ),
