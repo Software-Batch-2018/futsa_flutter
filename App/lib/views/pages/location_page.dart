@@ -70,7 +70,7 @@ class LocationPage extends StatelessWidget {
                 height: 50,
               ),
               Container(
-                child: _globalStyles.getStartedButton('Next' , nextPage),
+                child: _globalStyles.getStartedButton('Next', nextPage),
               )
             ],
           ),
