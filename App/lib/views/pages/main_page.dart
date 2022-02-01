@@ -28,12 +28,12 @@ class _MainPageState extends State<MainPage> {
               BottomNavigationBarItem(
                   title: Text('Explore'), icon: Icon(Icons.explore)),
               BottomNavigationBarItem(
-                title: Text('Music'),
-                icon: Icon(Icons.music_note),
+                title: Text('Community'),
+                icon: Icon(Icons.forum),
               ),
               BottomNavigationBarItem(
-                title: Text('Places'),
-                icon: Icon(Icons.location_on),
+                title: Text('Notifications'),
+                icon: Icon(Icons.notifications),
               ),
               BottomNavigationBarItem(
                 title: Text('Profile'),
