@@ -138,7 +138,7 @@ class SigninPage extends StatelessWidget {
 
 Widget _authButton(AuthController controller) {
   return GestureDetector(
-    onTap: controller.toogleAuthStatus,
+    onTap: () => controller.toogleAuthStatus(),
     child: Container(
       alignment: Alignment.center,
       height: 50,

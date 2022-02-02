@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/", page: () => Homepage()),
         GetPage(name: "/location", page: () => LocationPage()),
         GetPage(name: "/profile", page: () => ProfilePage()),
-        GetPage(name: "/main", page: () => MainPage()),
+        GetPage(name: "/main", page: () => const MainPage()),
         GetPage(name: "/signup", page: () => SignUpPage()),
         GetPage(name: "/signin", page: () => SigninPage()),
       ],

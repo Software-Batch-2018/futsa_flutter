@@ -10,4 +10,6 @@ class AuthController extends GetxController {
     Get.toNamed('/main');
     print(isAuth.value);
   }
+
+  get isAuthenticated => isAuth.value;
 }
