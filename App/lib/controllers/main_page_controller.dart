@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 class MainPageController extends GetxController {
   var currentIndex = 0.obs;
+  bool isAuth = false;
 
   final controller = PageController();
 
