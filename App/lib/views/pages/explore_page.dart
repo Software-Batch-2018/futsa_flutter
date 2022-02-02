@@ -15,14 +15,14 @@ class ExplorePage extends StatelessWidget {
         controller: scrollController,
         scrollDirection: Axis.vertical,
         child: Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
+          margin: const EdgeInsets.only(left: 10, right: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 40,
               ),
-      //Hero Part 
+              //Hero Part
               Row(
                 children: [
                   const Text(
@@ -112,8 +112,7 @@ class ExplorePage extends StatelessWidget {
                 height: 15,
               ),
 
-
-     // Futsal near you container 
+              // Futsal near you container
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -161,7 +160,7 @@ class ExplorePage extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: List.generate(
-                                        Random().nextInt(4)+1,
+                                        Random().nextInt(4) + 1,
                                         (index) => const Icon(
                                               Icons.star,
                                               color: Colors.yellow,
@@ -187,9 +186,9 @@ class ExplorePage extends StatelessWidget {
                       );
                     }),
               ),
-          
-     //   Upcoming events 
-          Row(
+
+              //   Upcoming events
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -204,7 +203,7 @@ class ExplorePage extends StatelessWidget {
                   TextButton(onPressed: () {}, child: const Text("See all")),
                 ],
               ),
-  //add more topics here        
+              //add more topics here
             ],
           ),
         ),

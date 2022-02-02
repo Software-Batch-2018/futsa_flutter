@@ -1,9 +1,14 @@
+import UserAuthController from '../../app/controllers/UserController/UserAuthController'
 import {Router} from 'express'
-import user from '../../app/controllers/UserController'
-import auth_middleware from '../../app/middlewares/auth_middleware'
 
 const router = Router()
 
-router.get('/', auth_middleware.userAuthMiddleware  , user.userHomeRoute)
+//Basic Authintication related Routes
+router.post('/login', UserAuthController.authenticate)
+router.post('/register', UserAuthController.registerUser)
+router.post('/reset', UserAuthController.resetPassword)
+router.post('/verify-password', UserAuthController.verifyTokenAndResetPassword )
+router.post('/account-verify', UserAuthController.verifyOTPandAccount)
+
 
 export default router

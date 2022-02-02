@@ -4,7 +4,12 @@ import { getRepository } from 'typeorm'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import jwtSecret from '../../../config/config'
+import crypto from 'crypto'
+import OtpService from '../OTPController/OtpService'
+
+
 class UserAuthController{
+
     async authenticate(req: Request, res: Response){
         try {
             const repository = getRepository(User)
@@ -38,7 +43,7 @@ class UserAuthController{
                 })
             }
 
-            const token = jwt.sign({id: user.id, role: user.role, email: user.email,}, 'JSONtokenSecretVeryLongPayloadhahaha', {
+            const token = jwt.sign({id: user.id, role: user.role, email: user.email,}, jwtSecret.jwtSecret, {
                 expiresIn: '5d'
             })
 
@@ -77,15 +82,17 @@ class UserAuthController{
             })
             await repository.save(user)
 
-            /*
+            const {hash, otp, expires} = await OtpService.sendVerificationCode(email)
 
-                OTP LOGIC HERE
+            console.log(otp, `otp for ${email}`)
 
-            */
+            const finalHash = `${hash}.${expires}`
 
-                return res.status(200).json({
-                    message: "Successfully added User"
-                })
+            return res.status(200).json({
+                message: "Successfully added user, please verify your account!",
+                hash: finalHash,
+                email: email
+            })
 
         } catch (error) {
 
@@ -96,14 +103,13 @@ class UserAuthController{
         }
     }
 
-
     async resetPassword(req: Request, res: Response){
         const {email} = req.body
         
         try {
             const user = await getRepository(User).findOneOrFail({email: email})
             
-            const secret = jwtSecret + user.password
+            const secret = jwtSecret.jwtSecret + user.password
 
             const payload = {
                 email: user.email,
@@ -138,7 +144,7 @@ class UserAuthController{
         try {
             const user = await getRepository(User).findOneOrFail({id: id})
 
-            const secret = jwtSecret + user.password
+            const secret = jwtSecret.jwtSecret + user.password
 
             jwt.verify(token, secret)
 
@@ -155,4 +161,50 @@ class UserAuthController{
             
         }
     }
+
+    async verifyOTPandAccount(req: Request, res: Response){
+        const {otp, hash, email} = req.body
+
+        if(!otp || !hash || !email){
+            return res.status(400).json({
+                message: "Missing fields"
+            })
+        }
+
+        try {
+            const [hashedOtp, expires] = hash.split('.')
+            if(Date.now > expires){
+                return res.status(400).json({
+                    message: "Expired OTP"
+                })
+            }
+
+            const data = `${email}.${otp}.${expires}`
+            const computedHash = crypto.createHmac('sha256', jwtSecret.jwtSecret).update(data).digest('hex')
+
+            if(computedHash == hashedOtp){
+                const user = await getRepository(User).findOneOrFail({email: email})
+
+                user.is_verified = true
+
+                await getRepository(User).save(user, {reload: true})
+
+                return res.status(200).json({
+                    message: "Account verified successfully"
+                })
+            }else{
+                return res.status(400).json({
+                    message: "Invalid OTP"
+                })
+            }
+            
+        } catch (error) {
+            return res.status(400).json({
+                message: "Something wrong happened"
+            })
+            
+        }
+    }
 }
+
+export default new UserAuthController()
