@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class SigninPage extends StatelessWidget {
   SigninPage({Key? key}) : super(key: key);
-  final authController = AuthController();
+  final authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +138,7 @@ class SigninPage extends StatelessWidget {
 
 Widget _authButton(AuthController controller) {
   return GestureDetector(
-    onTap: controller.toogleAuthStatus,
+    onTap: () => controller.toogleAuthStatus(),
     child: Container(
       alignment: Alignment.center,
       height: 50,

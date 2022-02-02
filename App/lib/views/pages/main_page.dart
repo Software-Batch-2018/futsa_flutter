@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:futsa/controllers/auth_controller.dart';
 import 'package:futsa/controllers/main_page_controller.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   MainPageController _mainPageController = MainPageController();
-
+  AuthController _authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,6 +21,9 @@ class _MainPageState extends State<MainPage> {
           bottomNavigationBar: BottomNavigationBar(
             elevation: 10,
             onTap: (index) {
+              print("From main page");
+
+              print(_authController.isAuth.value);
               _mainPageController.onNavbottomChange(index);
             },
             currentIndex: _mainPageController.currentIndex.value,
