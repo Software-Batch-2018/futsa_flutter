@@ -1,145 +1,126 @@
 import 'package:flutter/material.dart';
+import 'package:futsa/controllers/auth_controller.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProfilePage extends StatelessWidget {
-  final scrollController = ScrollController();
-
+class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  final _authController = AuthController();
+
+  @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SingleChildScrollView(
-        controller: scrollController,
-        scrollDirection: Axis.vertical,
-        child: Column(children: [
-          Stack(children: [
-            Container(
-              height: 250,
-              width: double.infinity,
-              color: Colors.teal,
-            ),
-            Center(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          )),
-                      Text(
-                        'Profile',
-                        style: GoogleFonts.openSans(
-                          textStyle: const TextStyle(
+    return Obx(() => _authController.isAuth.value == false
+        ? Expanded(
+            child: SingleChildScrollView(
+              controller: scrollController,
+              scrollDirection: Axis.vertical,
+              child: Column(children: [
+                Stack(children: [
+                  Container(
+                    height: 250,
+                    width: double.infinity,
+                    color: Colors.teal,
+                  ),
+                  Center(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.menu,
+                                  color: Colors.white,
+                                )),
+                            Text(
+                              'Profile',
+                              style: GoogleFonts.openSans(
+                                textStyle: const TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.settings,
+                                  color: Colors.white,
+                                )),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const CircleAvatar(
+                          foregroundImage:
+                              AssetImage('assets/images/profile.jpg'),
+                          radius: 40,
+                          backgroundColor: Colors.white,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "Saroj Aryal",
+                          style: GoogleFonts.openSans(
+                              textStyle: const TextStyle(
                             fontSize: 24,
                             color: Colors.white,
-                          ),
+                            fontWeight: FontWeight.bold,
+                          )),
                         ),
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.settings,
+                        Text(
+                          "Pokhara-17",
+                          style: GoogleFonts.openSans(
+                              textStyle: const TextStyle(
+                            fontSize: 16,
                             color: Colors.white,
                           )),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const CircleAvatar(
-                    foregroundImage: AssetImage('assets/images/profile.jpg'),
-                    radius: 40,
-                    backgroundColor: Colors.white,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Saroj Aryal",
-                    style: GoogleFonts.openSans(
-                        textStyle: const TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    )),
-                  ),
-                  Text(
-                    "Pokhara-17",
-                    style: GoogleFonts.openSans(
-                        textStyle: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    )),
+                        )
+                      ],
+                    ),
                   )
-                ],
-              ),
-            )
-          ]),
-          // Container(
-          //   height: 200,
-          //   child: Center(
-          //     child: GridView.count(
-          //       padding: const EdgeInsets.all(20),
-          //       crossAxisSpacing: 10,
-          //       mainAxisSpacing: 10,
-          //       crossAxisCount: 3,
-          //       children: <Widget>[
-          //         menuBox(
-          //           'Favourites',
-          //           Icons.favorite,
-          //         ),
-          //         menuBox(
-          //           'Favourites',
-          //           Icons.favorite,
-          //         ),
-          //         menuBox(
-          //           'Favourites',
-          //           Icons.favorite,
-          //         ),
-          //         menuBox(
-          //           'Favourites',
-          //           Icons.favorite,
-          //         ),
-          //         menuBox(
-          //           'Favourites',
-          //           Icons.favorite,
-          //         ),
-          //         menuBox(
-          //           'Favourites',
-          //           Icons.favorite,
-          //         ),
-          //         menuBox(
-          //           'Favourites',
-          //           Icons.favorite,
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-
-          Flex(
-            direction: Axis.horizontal,
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              menuBox(
-                'Bookings',
-                Icons.data_usage,
-              ),
-              menuBox(
-                'History',
-                Icons.history,
-              ),
-            ],
+                ]),
+                Flex(
+                  direction: Axis.horizontal,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    menuBox(
+                      'Bookings',
+                      Icons.data_usage,
+                    ),
+                    menuBox(
+                      'History',
+                      Icons.history,
+                    ),
+                  ],
+                )
+              ]),
+            ),
           )
-        ]),
-      ),
-    );
+        : Center(
+            child: ElevatedButton(
+                onPressed: () {
+                  Get.toNamed('/signin');
+                },
+                child: const Text("Sign in "))));
   }
 }
 
