@@ -12,115 +12,112 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final scrollController = ScrollController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  final _authController = AuthController();
+  final _authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => _authController.isAuth.value == false
-        ? Expanded(
-            child: SingleChildScrollView(
-              controller: scrollController,
-              scrollDirection: Axis.vertical,
-              child: Column(children: [
-                Stack(children: [
-                  Container(
-                    height: 250,
-                    width: double.infinity,
-                    color: Colors.teal,
-                  ),
-                  Center(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.menu,
-                                  color: Colors.white,
-                                )),
-                            Text(
-                              'Profile',
-                              style: GoogleFonts.openSans(
-                                textStyle: const TextStyle(
+    return Obx(
+      () => Container(
+          child: _authController.isAuth.isTrue
+              ? Expanded(
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    scrollDirection: Axis.vertical,
+                    child: Column(children: [
+                      Stack(children: [
+                        Container(
+                          height: 250,
+                          width: double.infinity,
+                          color: Colors.teal,
+                        ),
+                        Center(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.menu,
+                                        color: Colors.white,
+                                      )),
+                                  Text(
+                                    'Profile',
+                                    style: GoogleFonts.openSans(
+                                      textStyle: const TextStyle(
+                                        fontSize: 24,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.settings,
+                                        color: Colors.white,
+                                      )),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              const CircleAvatar(
+                                foregroundImage:
+                                    AssetImage('assets/images/profile.jpg'),
+                                radius: 40,
+                                backgroundColor: Colors.white,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                "Saroj Aryal",
+                                style: GoogleFonts.openSans(
+                                    textStyle: const TextStyle(
                                   fontSize: 24,
                                   color: Colors.white,
-                                ),
+                                  fontWeight: FontWeight.bold,
+                                )),
                               ),
-                            ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.settings,
+                              Text(
+                                "Pokhara-17",
+                                style: GoogleFonts.openSans(
+                                    textStyle: const TextStyle(
+                                  fontSize: 16,
                                   color: Colors.white,
                                 )),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const CircleAvatar(
-                          foregroundImage:
-                              AssetImage('assets/images/profile.jpg'),
-                          radius: 40,
-                          backgroundColor: Colors.white,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          "Saroj Aryal",
-                          style: GoogleFonts.openSans(
-                              textStyle: const TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
-                        ),
-                        Text(
-                          "Pokhara-17",
-                          style: GoogleFonts.openSans(
-                              textStyle: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          )),
+                              )
+                            ],
+                          ),
                         )
-                      ],
-                    ),
-                  )
-                ]),
-                Flex(
-                  direction: Axis.horizontal,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    menuBox(
-                      'Bookings',
-                      Icons.data_usage,
-                    ),
-                    menuBox(
-                      'History',
-                      Icons.history,
-                    ),
-                  ],
+                      ]),
+                      Flex(
+                        direction: Axis.horizontal,
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          menuBox(
+                            'Bookings',
+                            Icons.data_usage,
+                          ),
+                          menuBox(
+                            'History',
+                            Icons.history,
+                          ),
+                        ],
+                      )
+                    ]),
+                  ),
                 )
-              ]),
-            ),
-          )
-        : Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  Get.toNamed('/signin');
-                },
-                child: const Text("Sign in "))));
+              : Center(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Get.toNamed('/signin');
+                      },
+                      child: const Text("Sign in")))),
+    );
   }
 }
 

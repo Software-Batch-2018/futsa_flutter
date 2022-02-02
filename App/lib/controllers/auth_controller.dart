@@ -1,7 +1,9 @@
+import 'package:futsa/views/pages/main_page.dart';
+import 'package:futsa/views/pages/profile_page.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  RxBool isAuth = false.obs;
+  var isAuth = false.obs;
 
   void toogleAuthStatus() {
     isAuth.value = !isAuth.value;

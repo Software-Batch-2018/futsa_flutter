@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class SigninPage extends StatelessWidget {
   SigninPage({Key? key}) : super(key: key);
-  final authController = AuthController();
+  final authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
