@@ -1,1 +1,0 @@
-{"version":"1.0.0","name":"server","dependencies":{"express":{"version":"4.17.2"},"jsonwebtoken":{"version":"8.5.1"},"mysql":{"version":"2.18.1"},"reflect-metadata":{"version":"0.1.13"},"typeorm":{"version":"0.2.37"}}}
