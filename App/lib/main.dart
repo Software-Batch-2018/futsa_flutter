@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:futsa/views/pages/Auth/signin.dart';
 import 'package:futsa/views/pages/Auth/signup.dart';
+import 'package:futsa/views/pages/all_futsals_page.dart';
 import 'package:futsa/views/pages/profile_page.dart';
 import "package:get/get.dart";
 import './theme_data.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/main", page: () => const MainPage()),
         GetPage(name: "/signup", page: () => SignUpPage()),
         GetPage(name: "/signin", page: () => SigninPage()),
+        GetPage(name: "/allfutsals", page: () => AllFutsalsPage()),
       ],
     );
   }

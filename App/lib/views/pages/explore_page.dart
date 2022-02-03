@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:futsa/views/widgets/global_styles.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 
@@ -125,65 +126,21 @@ class ExplorePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  TextButton(onPressed: () {}, child: const Text("See all")),
+                  TextButton(
+                      onPressed: () {
+                        Get.toNamed('/allfutsals');
+                      },
+                      child: const Text("See all")),
                 ],
               ),
               Container(
-                height: 170,
+                padding: const EdgeInsets.all(8),
+                height: 180,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 10,
                     itemBuilder: (_, index) {
-                      return Container(
-                        height: 170,
-                        width: 160,
-                        margin: const EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey[200],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              'assets/images/futsal.jpg',
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8, bottom: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: List.generate(
-                                        Random().nextInt(4) + 1,
-                                        (index) => const Icon(
-                                              Icons.star,
-                                              color: Colors.yellow,
-                                              size: 15,
-                                            )),
-                                  ),
-                                  Text(
-                                    "ABC Futsal",
-                                    style: _stackText().merge(const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.teal)),
-                                  ),
-                                  Text(
-                                    "Nadipur pokhara",
-                                    style: GlobalStyles().subHeaderTextStyle(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
+                      return DetailsCard();
                     }),
               ),
 
@@ -207,6 +164,58 @@ class ExplorePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class DetailsCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.only(right: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey[200],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Image.asset(
+            'assets/images/futsal.jpg',
+            scale: 4,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: List.generate(
+                    Random().nextInt(4) + 1,
+                    (index) => const Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                          size: 15,
+                        )),
+              ),
+              Text(
+                "ABC Futsal",
+                style: _stackText().merge(const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal)),
+              ),
+              Text(
+                "Nadipur pokhara",
+                style: GlobalStyles().subHeaderTextStyle(),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
