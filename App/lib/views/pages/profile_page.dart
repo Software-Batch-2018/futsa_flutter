@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futsa/controllers/auth_controller.dart';
+import 'package:futsa/views/widgets/global_styles.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,8 +8,8 @@ class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
 
   final _authController = Get.put(AuthController());
-
   final scrollController = Get.put(ScrollController());
+  final _globalStyles = GlobalStyles();
 
   @override
   Widget build(BuildContext context) {
@@ -92,11 +93,11 @@ class ProfilePage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  menuBox(
+                  _globalStyles.menuBox(
                     'Bookings',
                     Icons.data_usage,
                   ),
-                  menuBox(
+                  _globalStyles.menuBox(
                     'History',
                     Icons.history,
                   ),
@@ -118,35 +119,5 @@ class ProfilePage extends StatelessWidget {
                 child: const Text("Sign in ")));
       }
     });
-  }
-
-  Expanded menuBox(String text, IconData iconName) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(25),
-        margin: const EdgeInsets.all(10),
-        color: Colors.grey[200],
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            Icon(
-              iconName,
-              color: Colors.teal,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              text,
-              style: GoogleFonts.openSans(
-                  textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black54)),
-            )
-          ],
-        ),
-      ),
-    );
   }
 }
