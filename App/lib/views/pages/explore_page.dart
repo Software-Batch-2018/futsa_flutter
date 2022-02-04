@@ -1,13 +1,15 @@
 import "package:flutter/material.dart";
-import 'package:futsa/views/widgets/global_styles.dart';
+import 'package:futsa/controllers/futsals_controller.dart';
+import 'package:futsa/views/widgets/futsal_box_card.dart';
+import 'package:futsa/views/widgets/futsal_card.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:math';
 
 class ExplorePage extends StatelessWidget {
   ExplorePage({Key? key}) : super(key: key);
 
   final scrollController = ScrollController();
+  final _futsalsController = FutsalsController();
 
   @override
   Widget build(BuildContext context) {
@@ -133,23 +135,29 @@ class ExplorePage extends StatelessWidget {
                       child: const Text("See all")),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                height: 180,
+              SizedBox(
+                height: 175,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 10,
+                    itemCount: _futsalsController.futsals.length,
                     itemBuilder: (_, index) {
-                      return DetailsCard();
+                      return FutsalBoxCard(
+                        id: _futsalsController.futsals[index].id,
+                        futsalName:
+                            _futsalsController.futsals[index].futsalName,
+                        address: _futsalsController.futsals[index].address,
+                        imageLink: _futsalsController.futsals[index].imageLink,
+                        pricePerHour:
+                            _futsalsController.futsals[index].pricePerHour,
+                      );
                     }),
               ),
-
-              //   Upcoming events
+              //   Recommended futsals for you.
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Events",
+                    "Recommended",
                     style: _stackText().merge(
                       const TextStyle(
                         fontSize: 24,
@@ -160,7 +168,22 @@ class ExplorePage extends StatelessWidget {
                   TextButton(onPressed: () {}, child: const Text("See all")),
                 ],
               ),
-              //add more topics here
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(
+                  _futsalsController.futsals.length,
+                  (index) {
+                    return FutsalCard(
+                      id: _futsalsController.futsals[index].id,
+                      futsalName: _futsalsController.futsals[index].futsalName,
+                      address: _futsalsController.futsals[index].address,
+                      imageLink: _futsalsController.futsals[index].imageLink,
+                      pricePerHour:
+                          _futsalsController.futsals[index].pricePerHour,
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -169,63 +192,10 @@ class ExplorePage extends StatelessWidget {
   }
 }
 
-class DetailsCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.only(right: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.grey[200],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset(
-            'assets/images/futsal.jpg',
-            scale: 4,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: List.generate(
-                    Random().nextInt(4) + 1,
-                    (index) => const Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 15,
-                        )),
-              ),
-              Text(
-                "ABC Futsal",
-                style: _stackText().merge(const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal)),
-              ),
-              Text(
-                "Nadipur pokhara",
-                style: GlobalStyles().subHeaderTextStyle(),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 TextStyle _stackText() {
-  return GoogleFonts.openSans(
-      textStyle: const TextStyle(
+  return const TextStyle(
     fontSize: 24,
     color: Colors.white70,
     fontWeight: FontWeight.bold,
-  ));
+  );
 }

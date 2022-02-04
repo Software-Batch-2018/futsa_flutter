@@ -88,20 +88,26 @@ class ProfilePage extends StatelessWidget {
                   ),
                 )
               ]),
-              Flex(
-                direction: Axis.horizontal,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _globalStyles.menuBox(
-                    'Bookings',
-                    Icons.data_usage,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _globalStyles.menuBox(
+                        'Bookings',
+                        Icons.data_usage,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      _globalStyles.menuBox(
+                        'History',
+                        Icons.history,
+                      ),
+                    ],
                   ),
-                  _globalStyles.menuBox(
-                    'History',
-                    Icons.history,
-                  ),
-                ],
+                ),
               ),
               ElevatedButton(
                 onPressed: () => _authController.toogleAuthStatus(),
